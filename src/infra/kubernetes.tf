@@ -22,7 +22,7 @@ resource "azurerm_kubernetes_cluster" "deployment" {
     os_disk_type        = "Ephemeral"
     availability_zones  = [1,2,3]
     
-    tags = var.default_tags
+    tags = local.default_tags
   }
 
   identity {
@@ -46,7 +46,7 @@ resource "azurerm_kubernetes_cluster" "deployment" {
     }
   }
 
-  tags = var.default_tags
+  tags = local.default_tags
 
 }
 
@@ -72,7 +72,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "singletons" {
   os_disk_size_gb       = 128 # 128
   os_disk_type          = "Ephemeral"
 
-  tags = var.default_tags
+  tags = local.default_tags
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "monitoring" { 
@@ -89,7 +89,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "monitoring" {
   os_disk_size_gb       = 128 # 128
   os_disk_type        = "Ephemeral"
 
-  tags = var.default_tags
+  tags = local.default_tags
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "trafficpool1" { 
@@ -106,7 +106,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "trafficpool1" {
   os_disk_size_gb       = 128 # 128
   os_disk_type        = "Ephemeral"
 
-  tags = var.default_tags
+  tags = local.default_tags
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "trafficpool2" { 
@@ -123,7 +123,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "trafficpool2" {
   os_disk_size_gb       = 128 # 128
   os_disk_type        = "Ephemeral"
 
-  tags = var.default_tags
+  tags = local.default_tags
 }
 
 # Assign AKS Cluster Managed Identity Contributor permissions 
