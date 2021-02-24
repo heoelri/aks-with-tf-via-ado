@@ -87,7 +87,7 @@ jobs:
     # Destroy Terraform Configuration
   - task: TerraformTaskV1@0
     displayName: 'Terraform Destroy'
-    condition: eq(variables['build.sourceBranch'], 'refs/heads/main') # will only run in master
+    condition: eq(variables['destroy'], 'true') # destroy 
     inputs:
       command: destroy
       provider: 'azurerm'

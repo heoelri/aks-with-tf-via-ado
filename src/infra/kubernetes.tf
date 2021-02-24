@@ -16,7 +16,7 @@ resource "azurerm_kubernetes_cluster" "deployment" {
     vm_size             = "Standard_F8s_v2"
     enable_auto_scaling = true
     min_count           = 3
-    max_count           = 8
+    max_count           = 9
     vnet_subnet_id      = azurerm_subnet.default.id
     type                = "VirtualMachineScaleSets"
     os_disk_type        = "Ephemeral"
@@ -66,7 +66,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "singletons" {
   enable_auto_scaling   = true
   #enable_node_public_ip = false
   min_count             = 3
-  max_count             = 10
+  max_count             = 9
   #node_labels           = { "workload" = "secondary" }
   node_taints           = ["dedicated=singletons:NoSchedule"]
   os_disk_size_gb       = 128 # 128
@@ -83,7 +83,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "monitoring" {
   enable_auto_scaling   = true
   #enable_node_public_ip = false
   min_count             = 3
-  max_count             = 10
+  max_count             = 9
   #node_labels           = { "workload" = "secondary" }
   node_taints           = ["role=monitoring:NoExecute"]
   os_disk_size_gb       = 128 # 128
