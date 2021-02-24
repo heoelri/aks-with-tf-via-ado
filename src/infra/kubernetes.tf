@@ -128,20 +128,20 @@ resource "azurerm_kubernetes_cluster_node_pool" "trafficpool2" {
 
 # Assign AKS Cluster Managed Identity Contributor permissions 
 # https://www.terraform.io/docs/providers/azurerm/r/role_assignment.html
-resource "azurerm_role_assignment" "deployment" {
-  scope                = data.azurerm_subscription.primary.id
-  role_definition_name = "Contributor"
-  principal_id         = azurerm_kubernetes_cluster.deployment.identity.0.principal_id
-}
+#resource "azurerm_role_assignment" "deployment" {
+#  scope                = data.azurerm_subscription.primary.id
+#  role_definition_name = "Contributor"
+#  principal_id         = azurerm_kubernetes_cluster.deployment.identity.0.principal_id
+#}
 
 # Assign AKS Cluster Managed Identity AcrPull
 # https://www.terraform.io/docs/providers/azurerm/r/role_assignment.html
-resource "azurerm_role_assignment" "acrpull_role" {
-  scope                            = data.azurerm_subscription.primary.id #/resourceGroups/${var.resource_group_name}"
-  role_definition_name             = "AcrPull"
-  principal_id                     = azurerm_kubernetes_cluster.deployment.kubelet_identity.0.object_id # identity.0.principal_id
-  skip_service_principal_aad_check = true
-}
+#resource "azurerm_role_assignment" "acrpull_role" {
+#  scope                            = data.azurerm_subscription.primary.id #/resourceGroups/${var.resource_group_name}"
+#  role_definition_name             = "AcrPull"
+#  principal_id                     = azurerm_kubernetes_cluster.deployment.kubelet_identity.0.object_id # identity.0.principal_id
+#  skip_service_principal_aad_check = true
+#}
 
 # Configure Monitoring (Azure Kubernetes Service to LogAnalytics)
 # https://www.terraform.io/docs/providers/azurerm/r/monitor_diagnostic_setting.html
