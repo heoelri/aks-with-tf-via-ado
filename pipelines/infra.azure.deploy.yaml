@@ -16,7 +16,8 @@ variables:
 - name: 'skipComponentGovernanceDetection'
   value: 'false'
 - name: 'azureServiceConnection'
-  value: 'cet-rampup-ao-heoelri'
+  value: 'azure-service-connection'
+- group: 'infrastructure-vg'
 - group: 'terraform-vg' # Terraform Configuration - tfResourceGroup, tfStorageAccount, tfVersion, tfContainerName and tfKey
 
 stages:
@@ -24,10 +25,6 @@ stages:
 # Deploy Site 1 - Infrastructure and Services
 - stage: deployinfra
   displayName: 'Deploy Infrastructure'
-  variables: 
-  - group: 'infrastructure-site1-vg' # environment specific variable group
-  - name: 'tfKey' # override terraform statefile - per env
-    value: 'site1.tfstate'
   jobs:
   - template: infra.azure.deploy.tpl.yaml
     parameters:
