@@ -27,15 +27,6 @@ stages:
   displayName: 'Dev - Deploy Infrastructure E2E'
   variables: 
     destroy: 'true' # destroy after deploy
-    resourceGroup: 'tfe2etest'
-  jobs:
-  - template: infra.azure.deploy.tpl.yaml
-    parameters:
-      workingDirectory: 'src/infra'
-
-# Deploy Infrastructure
-- stage: deployinfra
-  displayName: 'Dev - Deploy Infrastructure'
   jobs:
   - template: infra.azure.deploy.tpl.yaml
     parameters:
