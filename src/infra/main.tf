@@ -1,18 +1,24 @@
 terraform {
-  backend "azurerm" {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "2.47.0"
+    }
+    random = {
+      version = ">= 2.2.1"
+    }
   }
-  required_version = ">= 0.14.7"
+
+  backend "azurerm" {}
 }
 
 provider "azurerm" {
-  version                     = ">= 2.45.0"
   skip_provider_registration  = true
-  skip_credentials_validation = true
   features {}
 }
 
 provider "random" {
-  version = ">= 2.2.1"
+  features {}
 }
 
 data "azurerm_client_config" "current" {
