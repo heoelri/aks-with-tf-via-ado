@@ -1,0 +1,34 @@
+name: $(BuildDefinitionName).$(DayOfYear)$(Rev:.r)
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - 'src/infra/*'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- name: 'skipComponentGovernanceDetection'
+  value: 'false'
+- name: 'azureServiceConnection'
+  value: 'cet-rampup-ao-heoelri'
+- group: 'terraform-vg' # Terraform Configuration - tfResourceGroup, tfStorageAccount, tfVersion, tfContainerName and tfKey
+
+stages:
+
+# Deploy Site 1 - Infrastructure and Services
+- stage: deployinfra
+  displayName: 'Deploy Infrastructure'
+  variables: 
+  - group: 'infrastructure-site1-vg' # environment specific variable group
+  - name: 'tfKey' # override terraform statefile - per env
+    value: 'site1.tfstate'
+  jobs:
+  - template: infra.azure.deploy.tpl.yaml
+    parameters:
+      workingDirectory: 'src/infra'
