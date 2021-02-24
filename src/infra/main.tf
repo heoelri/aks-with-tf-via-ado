@@ -17,9 +17,7 @@ provider "azurerm" {
   features {}
 }
 
-provider "random" {
-  features {}
-}
+provider "random" {}
 
 data "azurerm_client_config" "current" {
 }

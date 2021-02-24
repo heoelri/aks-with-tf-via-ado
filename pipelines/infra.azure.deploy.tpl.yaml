@@ -84,3 +84,14 @@ jobs:
       TF_VAR_resource_group: '$(resourceGroup)'
     enabled: true
   
+    # Destroy Terraform Configuration
+  - task: TerraformTaskV1@0
+    displayName: 'Terraform Destroy'
+    condition: eq(variables['build.sourceBranch'], 'refs/heads/master') # will only run in master
+    inputs:
+      command: destroy
+      provider: 'azurerm'
+      environmentServiceNameAzureRM: '$(azureServiceConnection)'
+      workingDirectory: '${{ parameters.workingDirectory }}'
+    env:
+      ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
