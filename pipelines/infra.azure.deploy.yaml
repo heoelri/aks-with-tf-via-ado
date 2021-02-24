@@ -25,11 +25,11 @@ stages:
 # Deploy, Test and Destroy Infrastructure
 - stage: testinfrae2e
   displayName: 'Dev - Deploy Infrastructure E2E'
+  variables: 
+    destroy: 'true' # destroy after deploy
+    resourceGroup: '$(resourceGroup)-e2e'
   jobs:
   - template: infra.azure.deploy.tpl.yaml
-    variables: 
-      destroy: 'true' # destroy after deploy
-      resourceGroup: '$(resourceGroup)-e2e'
     parameters:
       workingDirectory: 'src/infra'
 
