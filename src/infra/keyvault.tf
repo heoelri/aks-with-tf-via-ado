@@ -44,9 +44,7 @@ resource "azurerm_key_vault" "deployment" {
 
   }
 
-  tags = {
-    environment = var.environment
-  }
+  tags = local.default_tags
 }
 
 # Add AKS Managed Identity to Key Vault Access Policy
