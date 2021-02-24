@@ -15,7 +15,7 @@ resource "azurerm_kubernetes_cluster" "deployment" {
     name                = "agentpool"
     vm_size             = "Standard_F8s_v2"
     enable_auto_scaling = true
-    min_count           = 3
+    min_count           = 1
     max_count           = 9
     vnet_subnet_id      = azurerm_subnet.default.id
     type                = "VirtualMachineScaleSets"
@@ -65,7 +65,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "singletons" {
   availability_zones    = [1,2,3]
   enable_auto_scaling   = true
   #enable_node_public_ip = false
-  min_count             = 3
+  min_count             = 1
   max_count             = 9
   #node_labels           = { "workload" = "secondary" }
   node_taints           = ["dedicated=singletons:NoSchedule"]
@@ -82,7 +82,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "monitoring" {
   availability_zones    = [1,2,3]
   enable_auto_scaling   = true
   #enable_node_public_ip = false
-  min_count             = 3
+  min_count             = 1
   max_count             = 9
   #node_labels           = { "workload" = "secondary" }
   node_taints           = ["role=monitoring:NoExecute"]
@@ -99,7 +99,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "trafficpool1" {
   availability_zones    = [1,2,3]
   enable_auto_scaling   = true
   #enable_node_public_ip = false
-  min_count             = 3
+  min_count             = 1
   max_count             = 100
   #node_labels           = { "workload" = "secondary" }
   #node_taints           = ["role=monitoring:NoExecute"]
@@ -116,7 +116,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "trafficpool2" {
   availability_zones    = [1,2,3]
   enable_auto_scaling   = true
   #enable_node_public_ip = false
-  min_count             = 3
+  min_count             = 1
   max_count             = 100
   #node_labels           = { "workload" = "secondary" }
   #node_taints           = ["role=monitoring:NoExecute"]
