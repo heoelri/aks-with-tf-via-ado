@@ -22,9 +22,9 @@ variables:
 
 stages:
 
-# Deploy Site 1 - Infrastructure and Services
+# Deploy Infrastructure
 - stage: deployinfra
-  displayName: 'Deploy Infrastructure'
+  displayName: 'Dev - Deploy Infrastructure'
   jobs:
   - template: infra.azure.deploy.tpl.yaml
     parameters:
