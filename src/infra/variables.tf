@@ -9,3 +9,10 @@ variable "resource_group" {
   description = "Azure Resource Group"
   default     = "default-resource-group"
 }
+
+locals {
+  default_tags = {
+    Project     = "AKS with TF via ADO Sample"
+    Toolkit     = "Terraform"
+  }
+}
