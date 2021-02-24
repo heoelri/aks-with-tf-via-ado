@@ -61,7 +61,7 @@ output "kube_config" {
 resource "azurerm_kubernetes_cluster_node_pool" "singletons" { 
   name                  = "singletons"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.deployment.id
-  vm_size               = "Standard_DS16s_v4"
+  vm_size               = "Standard_D16s_v4"
   availability_zones    = [1,2,3]
   enable_auto_scaling   = true
   #enable_node_public_ip = false
@@ -78,7 +78,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "singletons" {
 resource "azurerm_kubernetes_cluster_node_pool" "monitoring" { 
   name                  = "monitoring"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.deployment.id
-  vm_size               = "Standard_DS16s_v4"
+  vm_size               = "Standard_D16s_v4"
   availability_zones    = [1,2,3]
   enable_auto_scaling   = true
   #enable_node_public_ip = false
@@ -95,7 +95,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "monitoring" {
 resource "azurerm_kubernetes_cluster_node_pool" "trafficpool1" { 
   name                  = "trafficpool1"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.deployment.id
-  vm_size               = "Standard_DS16s_v4"
+  vm_size               = "Standard_D16s_v4"
   availability_zones    = [1,2,3]
   enable_auto_scaling   = true
   #enable_node_public_ip = false
@@ -112,7 +112,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "trafficpool1" {
 resource "azurerm_kubernetes_cluster_node_pool" "trafficpool2" { 
   name                  = "trafficpool2"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.deployment.id
-  vm_size               = "Standard_DS16s_v4"
+  vm_size               = "Standard_D16s_v4"
   availability_zones    = [1,2,3]
   enable_auto_scaling   = true
   #enable_node_public_ip = false
