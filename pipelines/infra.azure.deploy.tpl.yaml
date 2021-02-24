@@ -52,8 +52,6 @@ jobs:
       workingDirectory: '${{ parameters.workingDirectory }}'
     env:
       TF_VAR_location: '$(location)'
-      TF_VAR_client_secret: '$(spClientSecret)'
-      TF_VAR_client_id: '$(spClientId)'
       TF_VAR_resource_group: '$(resourceGroup)'
       ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
 
@@ -63,13 +61,11 @@ jobs:
     inputs:
       command: 'plan'
       provider: 'azurerm'
-      environmentServiceNameAzureRM: 'cet-rampup-ao-heoelri'
+      environmentServiceNameAzureRM: '$(azureServiceConnection)'
       workingDirectory: '${{ parameters.workingDirectory }}'
     env:
       ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
       TF_VAR_location: '$(location)'
-      TF_VAR_client_secret: '$(spClientSecret)'
-      TF_VAR_client_id: '$(spClientId)'
       TF_VAR_resource_group: '$(resourceGroup)'
     enabled: true
 
@@ -80,12 +76,11 @@ jobs:
     inputs:
       command: apply
       provider: 'azurerm'
-      environmentServiceNameAzureRM: 'cet-rampup-ao-heoelri'
+      environmentServiceNameAzureRM: '$(azureServiceConnection)'
       workingDirectory: '${{ parameters.workingDirectory }}'
     env:
       ARM_ACCESS_KEY: $(ARM_ACCESS_KEY)
       TF_VAR_location: '$(location)'
-      TF_VAR_client_secret: '$(spClientSecret)'
-      TF_VAR_client_id: '$(spClientId)'
       TF_VAR_resource_group: '$(resourceGroup)'
     enabled: true
+  
