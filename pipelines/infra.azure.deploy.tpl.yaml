@@ -72,7 +72,7 @@ jobs:
   # Apply Terraform Configuration
   - task: TerraformTaskV1@0
     displayName: 'Terraform Apply'
-    condition: eq(variables['build.sourceBranch'], 'refs/heads/master') # will only run in master
+    condition: eq(variables['build.sourceBranch'], 'refs/heads/main') # will only run in master
     inputs:
       command: apply
       provider: 'azurerm'
