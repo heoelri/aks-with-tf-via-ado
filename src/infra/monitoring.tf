@@ -31,9 +31,7 @@ resource "azurerm_key_vault_secret" "appinsightskey" {
   value        = azurerm_application_insights.deployment.instrumentation_key
   key_vault_id = azurerm_key_vault.deployment.id
 
-  tags = {
-    environment = var.environment
-  }
+  tags = local.default_tags
 }
 
 resource "azurerm_application_insights_api_key" "full" {
