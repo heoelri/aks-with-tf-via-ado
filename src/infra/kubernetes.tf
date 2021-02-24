@@ -5,7 +5,7 @@ resource "azurerm_kubernetes_cluster" "deployment" {
   resource_group_name = azurerm_resource_group.deployment.name
   dns_prefix          = "${lower(random_pet.deployment.id)}aks"
   kubernetes_version  = "1.18.14"
-  sku_tier = "Paid" # AKS Uptime SLA (free or paid)
+  sku_tier            = "Paid" # AKS Uptime SLA (free or paid)
 
   role_based_access_control {
     enabled = true
