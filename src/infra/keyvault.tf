@@ -11,29 +11,6 @@ resource "azurerm_key_vault" "deployment" {
 
   sku_name = "standard"
 
-  access_policy {
-    tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = data.azurerm_client_config.current.object_id
-
-    key_permissions = [
-      "get",
-    ]
-
-    secret_permissions = [
-      "get",
-      "set",
-      "list"
-    ]
-
-    certificate_permissions = [
-      "get",
-    ]
-
-    storage_permissions = [
-      "get",
-    ]
-  }
-
   network_acls {
     default_action = "Allow"
     bypass         = "AzureServices"
@@ -47,9 +24,34 @@ resource "azurerm_key_vault" "deployment" {
   tags = local.default_tags
 }
 
+# Add Pipeline Service Principal to Azure KeyVault Access Policy
+# https://www.terraform.io/docs/providers/azurerm/r/key_vault_access_policy.html
+resource "azurerm_key_vault_access_policy" "kv-self-access" {
+  key_vault_id = azurerm_key_vault.deployment.id
+
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  object_id = data.azurerm_client_config.current.object_id
+
+  key_permissions = [
+    "get",
+  ]
+
+  certificate_permissions = [
+    "get",
+  ]
+
+  secret_permissions = [
+    "get", "set", "Delete", "list"
+  ]
+
+  storage_permissions = [
+    "get",
+  ]
+}
+
 # Add AKS Managed Identity to Key Vault Access Policy
 # https://www.terraform.io/docs/providers/azurerm/r/key_vault_access_policy.html
-resource "azurerm_key_vault_access_policy" "deployment" {
+resource "azurerm_key_vault_access_policy" "kv-aks-access" {
   key_vault_id = azurerm_key_vault.deployment.id
 
   tenant_id = data.azurerm_client_config.current.tenant_id
