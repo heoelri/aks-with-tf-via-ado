@@ -5,6 +5,8 @@ resource "azurerm_log_analytics_workspace" "deployment" {
   resource_group_name = azurerm_resource_group.deployment.name
   sku                 = "PerGB2018"
   retention_in_days   = 30 # has to be between 30 and 730
+
+  tags = local.default_tags
 }
 
 # Application Insights
@@ -14,6 +16,8 @@ resource "azurerm_application_insights" "deployment" {
   location            = azurerm_resource_group.deployment.location
   resource_group_name = azurerm_resource_group.deployment.name
   application_type    = "web"
+
+  tags = local.default_tags
 }
 
 # AppInsights Instrumentation Key will be injected into a secret in K8s
@@ -30,6 +34,10 @@ resource "azurerm_key_vault_secret" "appinsightskey" {
   name         = "applicationInsightsKey"
   value        = azurerm_application_insights.deployment.instrumentation_key
   key_vault_id = azurerm_key_vault.deployment.id
+
+  depends_on = [
+    azurerm_key_vault_access_policy.kv-self-access
+  ]
 
   tags = local.default_tags
 }
