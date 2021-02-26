@@ -32,6 +32,17 @@ resource "azurerm_subnet_network_security_group_association" "default-nsg" {
   network_security_group_id = azurerm_network_security_group.default-nsg.id
 }
 
+# Public IP for Kubernetes Ingress Controller
+resource "azurerm_public_ip" "ingress" {
+  name                = "${random_pet.deployment.id}ingress"
+  resource_group_name = azurerm_resource_group.deployment.name
+  location            = azurerm_resource_group.deployment.location
+  allocation_method   = "Static"
+  sku                 = "Standard"     
+
+  tags = local.default_tags
+}
+
 # Configure Monitoring (Networking to Log Analytics)
 # https://www.terraform.io/docs/providers/azurerm/r/monitor_diagnostic_setting.html
 resource "azurerm_monitor_diagnostic_setting" "networking" {

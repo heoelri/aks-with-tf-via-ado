@@ -13,50 +13,25 @@ provider "helm" {
 
 # Deploy NGINX Ingress Controller (with autoscale)
 resource "helm_release" "nginx-ingress" {
-  name       = "nginx-ingress"
-  repository = "https://kubernetes.github.io/ingress-nginx"
-  chart      = "ingress-nginx"
-  version    = "3.23.0"
-  timeout    = 300 # timeout in seconds
-  wait       = true 
+    name       = "nginx-ingress"
+    repository = "https://kubernetes.github.io/ingress-nginx"
+    chart      = "ingress-nginx"
+    version    = "3.23.0"
+    timeout    = 300 # timeout in seconds
+    wait       = true 
 
-  set {
-    name  = "rbac.create"
-    value = "true"
-  }
+    # Load additional config from src/config/nginx-ingress/values.yaml
+    values = [
+        "src/config/nginx-ingress/values.yaml"
+    ]
 
-  set {
-    name  = "controller.autoscaling.enabled"
-    value = "true"
-  }
+    set {
+        name = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/azure-load-balancer-resource-group"
+        value = azurerm_resource_group.deployment.name
+    }
+    set {
+        name = "controller.service.loadBalancerIP"
+        value = azurerm_public_ip.ingress.ip_address
+    }
 
-  set {
-    name  = "controller.autoscaling.minReplicas"
-    value = "2"
-  }
-
-  set {
-    name  = "controller.autoscaling.maxReplicas"
-    value = "10"
-  }
-
-  set {
-    name  = "controller.resources.requests.memory"
-    value = "500Mi"
-  }
-
-  set {
-    name  = "controller.resources.limits.memory"
-    value = "1Gi"
-  }
-
-  set {
-    name  = "controller.resources.requests.cpu"
-    value = "500m"
-  }
-
-  set {
-    name  = "controller.resources.limits.cpu"
-    value = "1000m"
-  }
 }

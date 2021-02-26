@@ -1,0 +1,21 @@
+controller:
+  autoscaling:
+    enabled:      true
+    minReplicas:  2
+    maxReplicas:  10
+  resources:
+    requests:
+      cpu: 750m
+      memory: 750Mi
+  stats:
+    enabled: true # to enable "vts-status" page
+  metrics:
+    enabled: true # to enable Prometheus metrics (controller.stats.enabled must be true as well)
+    service:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9913"
+  service:
+    type:           LoadBalancer
+    enableHttp:     true # enable plain http (req. for cert-manager)
+    enableHttps:    true  # enable https listener
