@@ -21,7 +21,7 @@ resource "helm_release" "nginx-ingress" {
 
     # Load additional config from src/config/nginx-ingress/values.yaml
     raw_values = [
-        "${file(""src/config/nginx-ingress/values.yaml")}"
+        "${file("src/config/nginx-ingress/values.yaml")}"
     ]
 
     set {
