@@ -128,11 +128,11 @@ resource "azurerm_kubernetes_cluster_node_pool" "trafficpool2" {
 
 # Assign AKS Cluster Managed Identity Contributor permissions 
 # https://www.terraform.io/docs/providers/azurerm/r/role_assignment.html
-#resource "azurerm_role_assignment" "deployment" {
-#  scope                = data.azurerm_subscription.primary.id
-#  role_definition_name = "Contributor"
-#  principal_id         = azurerm_kubernetes_cluster.deployment.identity.0.principal_id
-#}
+resource "azurerm_role_assignment" "deployment" {
+  scope                = azurerm_resource_group.deployment.id
+  role_definition_name = "Network Contributor"
+  principal_id         = azurerm_kubernetes_cluster.deployment.identity.0.principal_id
+}
 
 # Assign AKS Cluster Managed Identity AcrPull
 # https://www.terraform.io/docs/providers/azurerm/r/role_assignment.html
